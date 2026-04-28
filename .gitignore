@@ -1,5 +1,5 @@
-#Python & Django
-pycache/
+# Python & Django
+__pycache/
 *.pyc
 *.pyo
 *.pyd
@@ -15,7 +15,7 @@ venv/
 .idea/
 
 # Static & Media
-static/
+# static/
 media/
 
 # OS 관련
@@ -25,4 +25,5 @@ Thumbs.db
 # Docker
 *.log
 
+# dotenv
 .env
