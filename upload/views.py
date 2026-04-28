@@ -14,5 +14,9 @@ def image_upload(request):
 
 def upload_success(request):
     images = UploadedImage.objects.all()
-    return render(request, 'upload/upload_success.html', {'images' : images})
+    image_data = [
+        {'title': img.title, 'url': img.get_presigned_url()}
+        for img in images
+    ]
+    return render(request, 'upload/upload_success.html', {'images' : image_data})
     
