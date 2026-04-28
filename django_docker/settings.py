@@ -132,7 +132,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-CSRF_TRUSTED_ORIGINS = ['http://52.78.196.230:8000']
+CSRF_TRUSTED_ORIGINS = ['http://52.78.196.230:8080']
 
 STORAGES = {
     'default' : {
