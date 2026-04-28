@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
     '52.78.196.230',
 ]
 
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'upload',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +85,12 @@ WSGI_APPLICATION = 'django_docker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rdsdb',
+        'USER': 'django',
+        'PASSWORD': os.getenv('LOCAL_RDSDB_PASSWORD'),
+        'HOST': 'django-post.cvkkgukwexvu.ap-northeast-2.rds.amazonaws.com',
+        'PORT' : '3306',
     }
 }
 
@@ -124,3 +131,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+CSRF_TRUSTED_ORIGINS = ['http://52.78.196.230:8000']
+
+STORAGES = {
+    'default' : {
+        'BACKEND' : 'storages.backends.s3boto3.S3Boto3Storage'
+    },
+    "staticfiles" : {
+        "BACKEND" : "django.contrib.staticfiles.storage.StaticFilesStorage"
+    }
+}
+
+
+AWS_ACCESS_KEY_ID= os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY= os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME= os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME= os.getenv("AWS_S3_REGION_NAME")
+AWS_S3_SIGNATURE_VERSION='s3v4'
